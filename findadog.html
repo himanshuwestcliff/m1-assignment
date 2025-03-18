@@ -1,50 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Find a Dog</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
 
-        <nav>
+<head>
+    <title>Find a Dog</title>
+    <meta charset="utf-8">
+    <style>
+        h2 {
+            font-size: 28px;
+            /* Slightly larger font for prominence */
+            color: #2c3e50;
+            /* Elegant dark blue-gray color */
+            text-align: center;
+            /* Centers the heading */
+            font-family: 'Verdana', sans-serif;
+            /* Modern and clean font */
+            margin-top: 20px;
+            /* Adds space above the heading */
+            margin-bottom: 15px;
+            /* Adds space below the heading */
+            text-transform: uppercase;
+            /* Makes the text all uppercase */
+            letter-spacing: 2px;
+            /* Adds spacing between letters for a sophisticated look */
+            border-bottom: 2px solid #2980b9;
+            /* Underlines the heading with a colored border */
+            padding-bottom: 5px;
+            /* Adds spacing below the heading text */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            /* Subtle shadow for depth */
+        }
 
-            <a href="home.html">Home</a>
+        a {
+            text-decoration: none;
+            /* Removes default underline */
+            color: #3498db;
+            /* Light blue for links */
+            font-weight: bold;
+            /* Makes the links stand out */
+            font-family: 'Arial', sans-serif;
+            /* Clean and modern font */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            /* Smooth transitions */
+        }
 
-        </nav>
+        a:hover {
+            color: #1abc9c;
+            /* Greenish-teal on hover */
+            text-shadow: 1px 1px 5px rgba(26, 188, 156, 0.5);
+            /* Glow effect */
+        }
 
-        <main>
+        a:active {
+            color: #e74c3c;
+            /* Reddish color when clicked */
+        }
 
-            <h2>Requirements for adopting a dog</h2>
+        nav {
+            margin-bottom: 20px;
+            /* Adds spacing below navigation */
+            text-align: center;
+            /* Centers the navigation link */
+        }
 
-            <table border="1">
-                <caption>Some of the requirements can be negotiated.</caption>
-                <thead>
-                    <tr>
-                        <th>Requirements</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Age</td>
-                        <td>Typically, adopter must be above 18 years old.</td>
-                    </tr>
-                    <tr>
-                        <td>Living Situation</td>
-                        <td>Proof of pet-friendly housing</td>
-                    </tr>
-                    <tr>
-                        <td>Financial Stability</td>
-                        <td>Ability to cover cost (food, medical, etc.)</td>
-                    </tr>
-                    <tr>
-                        <td>Adoption Fee</td>
-                        <td>Payment of adoption fee to cover costs of care and support</td>
-                    </tr>
-                </tbody>
-            </table>
+        table {
+    width: 80%;
+    /* Makes the table responsive and centered */
+    margin: 20px auto;
+    /* Adds space above and below and centers the table horizontally */
+    border-collapse: collapse;
+    /* Removes space between table borders */
+    font-family: 'Arial', sans-serif;
+    /* Simple and clean font for the table */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Adds a subtle shadow for depth */
+}
 
-        </main>
+caption {
+    font-weight: bold;
+    /* Makes the caption text prominent */
+    font-size: 18px;
+    /* Slightly larger font size */
+    margin-bottom: 10px;
+    /* Space below the caption */
+    color: #2c3e50;
+    /* Elegant dark blue-gray color for the text */
+}
 
-    </body>
+th, td {
+    border: 1px solid #2980b9;
+    /* Borders with a blue shade */
+    padding: 10px;
+    /* Adds spacing inside table cells */
+    text-align: left;
+    /* Aligns text to the left */
+    font-size: 16px;
+    /* Readable font size */
+}
+
+th {
+    background-color: #2980b9;
+    /* Blue background for headers */
+    color: white;
+    /* White text for contrast */
+    text-transform: uppercase;
+    /* Capitalizes header text */
+    letter-spacing: 1px;
+    /* Slight spacing for aesthetics */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Light gray for even rows */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* White for odd rows */
+}
+
+tbody tr:hover {
+    background-color: #dff9fb;
+    /* Light teal for row hover effect */
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <a href="home.html">Home</a>
+
+    </nav>
+
+    <main>
+
+        <h2>Requirements for adopting a dog</h2>
+
+        <table border="1">
+            <caption>Some of the requirements can be negotiated.</caption>
+            <thead>
+                <tr>
+                    <th>Requirements</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Age</td>
+                    <td>Typically, adopter must be above 18 years old.</td>
+                </tr>
+                <tr>
+                    <td>Living Situation</td>
+                    <td>Proof of pet-friendly housing</td>
+                </tr>
+                <tr>
+                    <td>Financial Stability</td>
+                    <td>Ability to cover cost (food, medical, etc.)</td>
+                </tr>
+                <tr>
+                    <td>Adoption Fee</td>
+                    <td>Payment of adoption fee to cover costs of care and support</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+</body>
+
 </html>

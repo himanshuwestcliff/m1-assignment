@@ -1,9 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dog Adoption Form</title>
+    <style>
+        h2 {
+            font-size: 24px;
+            /* Sets a readable and moderate font size */
+            color: #4CAF50;
+            /* Green shade to make the heading stand out */
+            text-align: center;
+            /* Centers the heading on the page */
+            font-family: Arial, sans-serif;
+            /* Uses a clean and simple font */
+            margin: 20px 0;
+            /* Adds space above and below the heading */
+            text-transform: uppercase;
+            /* Makes all the text uppercase */
+        }
+
+        form {
+            width: 50%;
+            /* Sets a comfortable form width */
+            margin: 20px auto;
+            /* Centers the form on the page */
+            padding: 20px;
+            /* Adds space inside the form for aesthetics */
+            border: 1px solid #4CAF50;
+            /* Green border for a neat look */
+            border-radius: 10px;
+            /* Rounds the corners of the form */
+            background-color: #f9f9f9;
+            /* Light gray background for contrast */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+        }
+
+        label {
+            font-size: 16px;
+            /* Sets a readable font size */
+            font-family: Arial, sans-serif;
+            /* Clean and simple font */
+            margin-bottom: 5px;
+            /* Adds space below labels */
+            display: block;
+            /* Stacks labels on top of their input fields */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            /* Makes inputs stretch to the form's width */
+            padding: 10px;
+            /* Adds space inside inputs */
+            margin-bottom: 15px;
+            /* Space below each input */
+            border: 1px solid #ccc;
+            /* Light border for inputs */
+            border-radius: 5px;
+            /* Rounds the input corners */
+            font-family: Arial, sans-serif;
+            /* Matches the font style */
+            font-size: 14px;
+            /* Readable font size */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            /* Slight shadow inside inputs */
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+            /* Adds spacing between radio button and its label */
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            /* Green button background */
+            color: white;
+            /* White text for contrast */
+            padding: 10px 15px;
+            /* Adds space inside the button */
+            border: none;
+            /* Removes border */
+            border-radius: 5px;
+            /* Rounds button corners */
+            cursor: pointer;
+            /* Changes cursor to pointer on hover */
+            font-size: 16px;
+            /* Sets an appropriate font size */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+    </style>
 </head>
+
 <body>
     <h2>Dog Adoption Form</h2>
     <form action="/submit_adoption" method="POST">
@@ -39,4 +135,5 @@
         <input type="submit" value="Submit">
     </form>
 </body>
+
 </html>
