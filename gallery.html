@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery Page</title>
+    <style>
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 photos per row */
+        gap: 10px; /* Space between photos */
+      }
+      .photo {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Photo Gallery</h1>
+    <ul class="gallery"></ul>
+  </body>
+</html>
