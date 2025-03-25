@@ -9,16 +9,98 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr); /* 5 photos per row */
         gap: 10px; /* Space between photos */
+        text-align: center; /* Center align captions */
       }
       .photo {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         object-fit: cover;
+        display: block; /* Ensure images are block-level for spacing */
+        margin: 0 auto; /* Center the image */
+      }
+      .caption {
+        font-size: 12px; /* Adjust font size for captions */
+        color: #555; /* Caption color */
       }
     </style>
   </head>
   <body>
     <h1>Photo Gallery</h1>
     <ul class="gallery"></ul>
+    <script>
+      // Array of photo URLs with corresponding captions and descriptions
+      const photos = [
+        {
+          src: "images/couch.jpg",
+          caption: "Cozy Couch",
+          description: "A comfy couch for relaxing.",
+        },
+        {
+          src: "images/cute.jpg",
+          caption: "Adorable Pup",
+          description: "This puppy will melt your heart!",
+        },
+        {
+          src: "images/german.jpg",
+          caption: "German Shepherd",
+          description: "The loyal German Shepherd.",
+        },
+        {
+          src: "images/golden.jpg",
+          caption: "Golden Retriever",
+          description: "The playful Golden Retriever.",
+        },
+        {
+          src: "images/hannah.jpg",
+          caption: "Lovely Hannah",
+          description: "Hannah enjoying a sunny day.",
+        },
+        {
+          src: "images/puppy.jpg",
+          caption: "Playful Puppy",
+          description: "Boundless energy in a tiny package.",
+        },
+        {
+          src: "images/sleep.jpg",
+          caption: "Sweet Dreams",
+          description: "A sleepy pup recharging energy.",
+        },
+        {
+          src: "images/small_cute.jpg",
+          caption: "Tiny & Cute",
+          description: "The charm of small and cute.",
+        },
+        {
+          src: "images/small.jpg",
+          caption: "Small Friend",
+          description: "A little companion to brighten your day.",
+        },
+        {
+          src: "images/snow.jpg",
+          caption: "Snowy Adventure",
+          description: "Exploring the snowy outdoors.",
+        },
+      ];
+
+      // Select the gallery container
+      const gallery = document.querySelector(".gallery");
+
+      // Loop through the array and create list items with photos, captions, and hover descriptions
+      photos.forEach((photo) => {
+        const listItem = document.createElement("li"); // List item
+        const image = document.createElement("img"); // Image element
+        image.src = photo.src; // Set the source of the photo
+        image.classList.add("photo"); // Add the 'photo' class
+        image.title = photo.description; // Add hover description using the 'title' attribute
+
+        const caption = document.createElement("span"); // Caption element
+        caption.textContent = photo.caption; // Set the caption text
+        caption.classList.add("caption"); // Add the 'caption' class
+
+        listItem.appendChild(image); // Append image to the list item
+        listItem.appendChild(caption); // Append caption below the image
+        gallery.appendChild(listItem); // Append list item to the gallery
+      });
+    </script>
   </body>
 </html>
