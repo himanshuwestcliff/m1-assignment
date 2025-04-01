@@ -22,6 +22,35 @@
         font-size: 12px; /* Adjust font size for captions */
         color: #555; /* Caption color */
       }
+
+      .photo-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+      }
+
+      .description {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .photo-container:hover .description {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -101,6 +130,22 @@
         listItem.appendChild(caption); // Append caption below the image
         gallery.appendChild(listItem); // Append list item to the gallery
       });
+
+      const photoContainer = document.createElement("div");
+      photoContainer.classList.add("photo-container");
+
+      const image = document.createElement("img");
+      image.src = photo.src;
+      image.classList.add("photo");
+
+      const description = document.createElement("div");
+      description.classList.add("description");
+      description.textContent = photo.description;
+
+      photoContainer.appendChild(image);
+      photoContainer.appendChild(description);
+      listItem.appendChild(photoContainer);
+      listItem.appendChild(caption);
     </script>
   </body>
 </html>
