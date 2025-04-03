@@ -5,29 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gallery Page</title>
     <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+
+      nav {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      nav li {
+        display: inline;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+      }
+
+      nav a:hover {
+        color: #1abc9c;
+        background-color: #e9ecef;
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+      }
+
       .gallery {
         display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 photos per row */
-        gap: 10px; /* Space between photos */
-        text-align: center; /* Center align captions */
-      }
-      .photo {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        display: block; /* Ensure images are block-level for spacing */
-        margin: 0 auto; /* Center the image */
-      }
-      .caption {
-        font-size: 12px; /* Adjust font size for captions */
-        color: #555; /* Caption color */
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
       }
 
       .photo-container {
         position: relative;
-        width: 200px;
-        height: 200px;
-        margin: 0 auto;
+        width: 100%;
+        padding-bottom: 100%; /* Creates a square aspect ratio */
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .photo-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .photo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.3s ease;
+      }
+
+      .photo.loading {
+        opacity: 0;
+      }
+
+      .photo.loaded {
+        opacity: 1;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .photo-container:hover .caption {
+        transform: translateY(0);
       }
 
       .description {
@@ -46,6 +129,7 @@
         transition: opacity 0.3s ease;
         font-size: 14px;
         text-align: center;
+        cursor: pointer;
       }
 
       .photo-container:hover .description {
@@ -99,10 +183,60 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 999;
       }
+
+      /* Loading spinner */
+      .loading-spinner {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        z-index: 1001;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 15px;
+          padding: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          gap: 10px;
+        }
+      }
     </style>
   </head>
   <body>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="findadog.html">Find a Dog</a></li>
+        <li><a href="form.html">Adoption Form</a></li>
+      </ul>
+    </nav>
+
     <h1>Photo Gallery</h1>
+    <div class="loading-spinner"></div>
     <ul class="gallery"></ul>
     <!-- Info Box and Overlay -->
     <div class="overlay"></div>
@@ -111,118 +245,6 @@
       <p></p>
       <a class="close-link">Close</a>
     </div>
-    <script>
-      const infoBox = document.querySelector(".info-box");
-      const overlay = document.querySelector(".overlay");
-      const closeLink = document.querySelector(".close-link");
-      // Array of photo URLs with corresponding captions and descriptions
-      const photos = [
-        {
-          src: "images/couch.jpg",
-          caption: "Cozy Couch",
-          description: "A comfy couch for relaxing.",
-        },
-        {
-          src: "images/cute.jpg",
-          caption: "Adorable Pup",
-          description: "This puppy will melt your heart!",
-        },
-        {
-          src: "images/german.jpg",
-          caption: "German Shepherd",
-          description: "The loyal German Shepherd.",
-        },
-        {
-          src: "images/golden.jpg",
-          caption: "Golden Retriever",
-          description: "The playful Golden Retriever.",
-        },
-        {
-          src: "images/hannah.jpg",
-          caption: "Lovely Hannah",
-          description: "Hannah enjoying a sunny day.",
-        },
-        {
-          src: "images/puppy.jpg",
-          caption: "Playful Puppy",
-          description: "Boundless energy in a tiny package.",
-        },
-        {
-          src: "images/sleep.jpg",
-          caption: "Sweet Dreams",
-          description: "A sleepy pup recharging energy.",
-        },
-        {
-          src: "images/small_cute.jpg",
-          caption: "Tiny & Cute",
-          description: "The charm of small and cute.",
-        },
-        {
-          src: "images/small.jpg",
-          caption: "Small Friend",
-          description: "A little companion to brighten your day.",
-        },
-        {
-          src: "images/snow.jpg",
-          caption: "Snowy Adventure",
-          description: "Exploring the snowy outdoors.",
-        },
-      ];
-
-      // Select the gallery container
-      const gallery = document.querySelector(".gallery");
-
-      // Function to show info box
-      function showInfoBox(caption, description) {
-        infoBox.querySelector("h2").textContent = caption;
-        infoBox.querySelector("p").textContent = description;
-        infoBox.style.display = "block";
-        overlay.style.display = "block";
-      }
-
-      // Function to hide info box
-      function hideInfoBox() {
-        infoBox.style.display = "none";
-        overlay.style.display = "none";
-      }
-
-      // Add click event listener to close link
-      closeLink.addEventListener("click", hideInfoBox);
-
-      // Add click event listener to overlay
-      overlay.addEventListener("click", hideInfoBox);
-
-      // Loop through the array and create list items with photos, captions, and hover descriptions
-      photos.forEach((photo) => {
-        const listItem = document.createElement("li");
-
-        // Create container for photo and description
-        const photoContainer = document.createElement("div");
-        photoContainer.classList.add("photo-container");
-
-        const image = document.createElement("img");
-        image.src = photo.src;
-        image.classList.add("photo");
-
-        const description = document.createElement("div");
-        description.classList.add("description");
-        description.textContent = photo.description;
-
-        // Add click event listener to description
-        description.addEventListener("click", () => {
-          showInfoBox(photo.caption, photo.description);
-        });
-
-        const caption = document.createElement("span");
-        caption.textContent = photo.caption;
-        caption.classList.add("caption");
-
-        photoContainer.appendChild(image);
-        photoContainer.appendChild(description);
-        listItem.appendChild(photoContainer);
-        listItem.appendChild(caption);
-        gallery.appendChild(listItem);
-      });
-    </script>
+    <script src="gallery.js"></script>
   </body>
 </html>

@@ -1,130 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Huntington Beach Dog Adoption Committee</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <style>
-        h1 {
-            font-size: 36px;
-            color: #2c3e50;
-            /* Elegant dark color */
-            text-align: center;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            /* Stylish shadow effect */
-            font-family: "Arial", sans-serif;
-            /* Clean font choice */
-            margin-top: 20px;
-        }
+      h1 {
+        font-size: 36px;
+        color: #2c3e50;
+        /* Elegant dark color */
+        text-align: center;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        /* Stylish shadow effect */
+        font-family: "Arial", sans-serif;
+        /* Clean font choice */
+        margin-top: 20px;
+      }
 
-        p {
-            font-size: 18px;
-            /* Slightly larger text for readability */
-            line-height: 1.8;
-            /* Enhances readability by adding space between lines */
-            color: #34495e;
-            /* Deep blue-gray for text color */
-            font-family: 'Georgia', serif;
-            /* A professional and elegant font */
-            margin-bottom: 20px;
-            /* Adds space between paragraphs */
-            text-align: justify;
-            /* Aligns text evenly on both left and right sides */
-            background-color: #f7f9fc;
-            /* A subtle background for emphasis */
-            padding: 15px;
-            /* Adds padding inside the paragraph box */
-            border-radius: 10px;
-            /* Gives paragraphs rounded edges for a modern look */
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow for depth */
-        }
+      p {
+        font-size: 18px;
+        /* Slightly larger text for readability */
+        line-height: 1.8;
+        /* Enhances readability by adding space between lines */
+        color: #34495e;
+        /* Deep blue-gray for text color */
+        font-family: "Georgia", serif;
+        /* A professional and elegant font */
+        margin-bottom: 20px;
+        /* Adds space between paragraphs */
+        text-align: justify;
+        /* Aligns text evenly on both left and right sides */
+        background-color: #f7f9fc;
+        /* A subtle background for emphasis */
+        padding: 15px;
+        /* Adds padding inside the paragraph box */
+        border-radius: 10px;
+        /* Gives paragraphs rounded edges for a modern look */
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for depth */
+      }
 
-        a {
-            text-decoration: none;
-            /* Removes the default underline */
-            color: #3498db;
-            /* Light blue color for links */
-            font-weight: bold;
-            /* Makes the text stand out */
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            /* Adds smooth transitions */
-        }
+      a {
+        text-decoration: none;
+        /* Removes the default underline */
+        color: #3498db;
+        /* Light blue color for links */
+        font-weight: bold;
+        /* Makes the text stand out */
+        transition: color 0.3s ease;
+        /* Adds smooth transitions */
+      }
 
-        a:hover {
-            color: #1abc9c;
-            /* Greenish color on hover */
-            text-shadow: 1px 1px 5px rgba(26, 188, 156, 0.5);
-            /* Glow effect on hover */
-        }
+      a:hover {
+        color: #1abc9c;
+        /* Greenish color on hover */
+      }
 
-        a:active {
-            color: #e74c3c;
-            /* Red color when the link is clicked */
-        }
+      a:active {
+        color: #e74c3c;
+        /* Red color when the link is clicked */
+      }
 
-        img {
-            width: 100%;
-            /* Ensures responsiveness */
-            max-width: 500px;
-            /* Restricts width for consistency */
-            height: auto;
-            /* Maintains aspect ratio */
-            border-radius: 15px;
-            /* Rounds the corners */
-            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
-            /* Adds a shadow effect */
-            margin: 20px auto;
-            /* Centers the images */
-            display: block;
-            /* Centers images in the layout */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* Smooth hover effects */
-        }
+      /* Simple image styling */
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+      }
 
-        img:hover {
-            transform: scale(1.05);
-            /* Slight zoom on hover */
-            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
-            /* Enhanced shadow on hover */
-        }
+      .image-container img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      nav {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      nav li {
+        display: inline;
+      }
+
+      nav a {
+        padding: 8px 15px;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+      }
+
+      nav a:hover {
+        background-color: #e9ecef;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <nav>
-        <ul>
-            <li>
-                <a href="findadog.html">Find a Dog</a>
-            </li>
-            <li>
-                <a href="form.html">Fill the form</a>
-            </li>
-        </ul>
+      <ul>
+        <li>
+          <a href="findadog.html">Find a Dog</a>
+        </li>
+        <li>
+          <a href="form.html">Fill the form</a>
+        </li>
+        <li>
+          <a href="gallery.html">View Gallery</a>
+        </li>
+      </ul>
     </nav>
 
     <main>
+      <h1>Want to Adopt or Put on a Dog for Adoption?</h1>
+      <p>
+        Every tail wag on the Huntington Beach Dog Adoption Committee conveys a
+        message of hope. Welcome! Connecting devoted families with rescue pets
+        in need of a forever home is our goal. Our committed staff puts in a lot
+        of effort to make sure every dog finds the ideal home, whether you're
+        searching for a playful puppy or a faithful friend. Adopting a dog gives
+        a worthy canine a second chance at life in addition to providing you a
+        best friend. Look through our available canines now and join us in
+        changing the world, one adoption at a time!
+      </p>
+      <p>
+        At the Huntington Beach Dog Adoption Committee, we think all dogs should
+        have access to love, care, and a secure home. Dogs of all kinds, ages,
+        and histories are the focus of our rescue efforts, and we make sure they
+        get the care, love, and training they require before finding new homes.
+        We work to decrease the number of homeless pets and encourage
+        responsible pet ownership with the help of our amazing volunteers and
+        kind donors. Adopt, foster, donate, or volunteer today to support our
+        work and help us provide these amazing dogs with the fulfilling lives
+        they deserve!
+      </p>
 
-        <h1>Want to Adopt or Put on a Dog for Adoption?</h1>
-        <p>Every tail wag on the Huntington Beach Dog Adoption Committee conveys a message of hope. Welcome! Connecting
-            devoted families with rescue pets in need of a forever home is our goal. Our committed staff puts in a lot
-            of effort to make sure every dog finds the ideal home, whether you're searching for a playful puppy or a
-            faithful friend. Adopting a dog gives a worthy canine a second chance at life in addition to providing you a
-            best friend. Look through our available canines now and join us in changing the world, one adoption at a
-            time!</p>
-        <p>At the Huntington Beach Dog Adoption Committee, we think all dogs should have access to love, care, and a
-            secure home. Dogs of all kinds, ages, and histories are the focus of our rescue efforts, and we make sure
-            they get the care, love, and training they require before finding new homes. We work to decrease the number
-            of homeless pets and encourage responsible pet ownership with the help of our amazing volunteers and kind
-            donors. Adopt, foster, donate, or volunteer today to support our work and help us provide these amazing dogs
-            with the fulfilling lives they deserve!</p>
-        <img src="images/camilo-fierro-z7rcwqCi77s-unsplash.jpg" alt="camilo-fierro" width="500">
-        <img src="images/hannah-lim-U6nlG0Y5sfs-unsplash.jpg" alt="hannah" width="500">
-        <img src="images/karsten-winegeart-BJaqPaH6AGQ-unsplash.jpg" alt="karsten" width="500">
-
+      <div class="image-container">
+        <img src="images/couch.jpg" alt="Dog on couch" />
+        <img src="images/hannah.jpg" alt="Hannah the dog" />
+        <img src="images/karsten.jpg" alt="Karsten's dog" />
+      </div>
     </main>
-
-</body>
-
+  </body>
 </html>
