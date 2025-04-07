@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gallery Page</title>
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       body {
         margin: 0;
@@ -63,18 +65,26 @@
       }
 
       .photo-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 100%; /* Creates a square aspect ratio */
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
       }
 
       .photo-container:hover {
         transform: translateY(-5px);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .photo-wrapper {
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+        overflow: hidden;
+        border-radius: 10px 10px 0 0;
+        cursor: pointer;
       }
 
       .photo {
@@ -87,126 +97,102 @@
         transition: opacity 0.3s ease;
       }
 
-      .photo.loading {
-        opacity: 0;
-      }
-
-      .photo.loaded {
-        opacity: 1;
-      }
-
       .caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
         padding: 10px;
-        font-size: 14px;
         text-align: center;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
+        color: #2c3e50;
+        font-size: 14px;
+        background-color: white;
+        border-radius: 0 0 10px 10px;
       }
 
-      .photo-container:hover .caption {
-        transform: translateY(0);
-      }
-
-      .description {
+      .info-box {
+        display: none;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 10px 10px 0 0;
+        z-index: 1;
+      }
+
+      .info-box.show {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        font-size: 14px;
-        text-align: center;
-        cursor: pointer;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
-      .photo-container:hover .description {
-        opacity: 1;
-      }
-
-      /* Info Box Styles */
-      .info-box {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-        max-width: 400px;
-        width: 90%;
-      }
-
-      .info-box h2 {
-        margin: 0 0 15px 0;
-        color: #333;
+      .info-box h3 {
+        margin: 0 0 10px 0;
+        color: #2c3e50;
+        font-size: 16px;
       }
 
       .info-box p {
-        margin: 0 0 20px 0;
-        line-height: 1.5;
+        margin: 0;
         color: #666;
+        font-size: 14px;
+        line-height: 1.4;
       }
 
       .close-link {
-        color: #007bff;
+        color: #3498db;
         text-decoration: none;
-        cursor: pointer;
+        font-size: 13px;
+        margin-top: 10px;
+        display: inline-block;
       }
 
       .close-link:hover {
         text-decoration: underline;
       }
 
-      .overlay {
+      /* Lightbox styles */
+      .lightbox {
         display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
       }
 
-      /* Loading spinner */
-      .loading-spinner {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 50px;
-        height: 50px;
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid #3498db;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        z-index: 1001;
+      .lightbox.show {
+        display: flex;
       }
 
-      @keyframes spin {
-        0% {
-          transform: translate(-50%, -50%) rotate(0deg);
-        }
-        100% {
-          transform: translate(-50%, -50%) rotate(360deg);
-        }
+      .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90vh;
+        margin: 20px;
+      }
+
+      .lightbox-image {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border: 4px solid white;
+      }
+
+      .close-lightbox {
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
       }
 
       /* Responsive adjustments */
@@ -236,15 +222,149 @@
     </nav>
 
     <h1>Photo Gallery</h1>
-    <div class="loading-spinner"></div>
     <ul class="gallery"></ul>
-    <!-- Info Box and Overlay -->
-    <div class="overlay"></div>
-    <div class="info-box">
-      <h2></h2>
-      <p></p>
-      <a class="close-link">Close</a>
+
+    <!-- Lightbox container -->
+    <div class="lightbox">
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-image">
+        <button class="close-lightbox">×</button>
+      </div>
     </div>
-    <script src="gallery.js"></script>
+
+    <script>
+      // Array of photo data
+      const photos = [
+        {
+          src: "images/couch.jpg",
+          caption: "Cozy Couch",
+          description: "A comfy couch for relaxing."
+        },
+        {
+          src: "images/cute.jpg",
+          caption: "Adorable Pup",
+          description: "This puppy will melt your heart!"
+        },
+        {
+          src: "images/german.jpg",
+          caption: "German Shepherd",
+          description: "The loyal German Shepherd."
+        },
+        {
+          src: "images/golden.jpg",
+          caption: "Golden Retriever",
+          description: "The playful Golden Retriever."
+        },
+        {
+          src: "images/hannah.jpg",
+          caption: "Lovely Hannah",
+          description: "Hannah enjoying a sunny day."
+        },
+        {
+          src: "images/puppy.jpg",
+          caption: "Playful Puppy",
+          description: "Boundless energy in a tiny package."
+        },
+        {
+          src: "images/sleep.jpg",
+          caption: "Sweet Dreams",
+          description: "A sleepy pup recharging energy."
+        },
+        {
+          src: "images/small_cute.jpg",
+          caption: "Tiny & Cute",
+          description: "The charm of small and cute."
+        },
+        {
+          src: "images/small.jpg",
+          caption: "Small Friend",
+          description: "A little companion to brighten your day."
+        },
+        {
+          src: "images/snow.jpg",
+          caption: "Snowy Adventure",
+          description: "Exploring the snowy outdoors."
+        }
+      ];
+
+      // Create gallery items
+      photos.forEach(function(photo) {
+        const listItem = document.createElement("li");
+        const photoContainer = document.createElement("div");
+        photoContainer.classList.add("photo-container");
+
+        const photoWrapper = document.createElement("div");
+        photoWrapper.classList.add("photo-wrapper");
+
+        const image = document.createElement("img");
+        image.src = photo.src;
+        image.alt = photo.caption;
+        image.title = photo.description;
+        image.classList.add("photo");
+
+        const caption = document.createElement("div");
+        caption.textContent = photo.caption;
+        caption.classList.add("caption");
+
+        const infoBox = document.createElement("div");
+        infoBox.classList.add("info-box");
+        
+        const heading = document.createElement("h3");
+        heading.textContent = photo.caption;
+        
+        const description = document.createElement("p");
+        description.textContent = photo.description;
+        
+        const closeLink = document.createElement("a");
+        closeLink.href = "#";
+        closeLink.textContent = "Close";
+        closeLink.classList.add("close-link");
+        
+        closeLink.addEventListener("click", function(e) {
+          e.preventDefault();
+          infoBox.classList.remove("show");
+        });
+
+        infoBox.appendChild(heading);
+        infoBox.appendChild(description);
+        infoBox.appendChild(closeLink);
+
+        photoWrapper.appendChild(image);
+        photoWrapper.appendChild(infoBox);
+        photoContainer.appendChild(photoWrapper);
+        photoContainer.appendChild(caption);
+        listItem.appendChild(photoContainer);
+        document.querySelector(".gallery").appendChild(listItem);
+      });
+
+      // jQuery Lightbox functionality
+      $(document).ready(function() {
+        // Open lightbox when clicking on photo wrapper
+        $('.photo-wrapper').click(function() {
+          const imgSrc = $(this).find('img').attr('src');
+          $('.lightbox-image').attr('src', imgSrc);
+          $('.lightbox').addClass('show');
+        });
+
+        // Close lightbox when clicking close button
+        $('.close-lightbox').click(function() {
+          $('.lightbox').removeClass('show');
+        });
+
+        // Close lightbox when clicking outside the image
+        $('.lightbox').click(function(e) {
+          if ($(e.target).hasClass('lightbox')) {
+            $(this).removeClass('show');
+          }
+        });
+
+        // Close lightbox when pressing Escape key
+        $(document).keydown(function(e) {
+          if (e.key === "Escape" && $('.lightbox').hasClass('show')) {
+            $('.lightbox').removeClass('show');
+          }
+        });
+      });
+    </script>
   </body>
 </html>
